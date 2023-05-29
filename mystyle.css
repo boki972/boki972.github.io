@@ -1,0 +1,25 @@
+/*(3)5種不同css特效*/
+h1 {
+  color: blue;
+}
+
+h2 {
+  color: green;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  background-color: yellow;
+  color: red;
+  border: 1px solid black;
+}
+
+input[type="text"] {
+  width: 200px;
+  height: 30px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      href="https://play-lh.googleusercontent.com/CW_Qjcy-Dv9FVnQBVwKL1MDN9PNE23Fch5FA7qHgwtn8BD87op4ZBvqi_gGV7o-Ku49C"
+      type="image/x-icon"
+    />
+    <title>匯率轉換計算機</title>
+    <link rel="stylesheet" type="text/css" href="mystyle.css" />
+  </head>
+  <body>
+    <h1>匯率轉換計算機</h1>
+
+    <p>請輸入台幣金額：</p>
+    <!--(1)輸入金額-->
+    <input type="text" id="twdAmount" />
+    <button onclick="calculate()">執行計算</button>
+    <!--(4)reset button-->
+    <button onclick="reset()">重新開始</button>
+
+    <h2>轉換結果：</h2>
+    <ul id="resultList"></ul>
+
+    <script>
+      function calculate() {
+        var twdInput = document.getElementById("twdAmount").value;
+        var twdAmount = parseFloat(twdInput);
+        /*(5)非有效數值觸發reset*/
+        if (isNaN(twdAmount) || twdAmount <= 0) {
+          alert("請輸入有效數值！");
+          reset();
+          return;
+        }
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            var xmlData = this.responseXML;
+            var rates = xmlData.getElementsByTagName("rate");
+            var resultList = document.getElementById("resultList");
+            resultList.innerHTML = "";
+
+            for (var i = 0; i < rates.length; i++) {
+              var currency = rates[i].getAttribute("currency");
+              var rate = parseFloat(rates[i].textContent);
+              var convertedAmount = (twdAmount * rate).toFixed(
+                2
+              ); /*(1)小數點後第2位*/
+              var listItem = document.createElement("li");
+              listItem.textContent =
+                twdInput +
+                " TWD 轉換成 " +
+                currency +
+                ": " +
+                convertedAmount +
+                " " +
+                currency;
+              resultList.appendChild(listItem);
+            } /*(1)顯示轉換*/
+          }
+        };
+        xhttp.open("GET", "rate.xml", true);
+        xhttp.send();
+      }
+
+      function reset() {
+        document.getElementById("twdAmount").value = "";
+        document.getElementById("resultList").innerHTML = "";
+      }
+    </script>
+  </body>
+</html>

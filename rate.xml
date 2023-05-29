@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rates><!--(2)儲存匯率-->
+  <rate currency="USD">0.033</rate>
+  <rate currency="EUR">0.029</rate>
+  <rate currency="JPY">4.498</rate>
+  <rate currency="KRW">43.127</rate>
+  <rate currency="AUD">0.049</rate>
+</rates>
